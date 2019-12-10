@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+    {% extends 'app/base.html' %}
+    {% block content %}
+
+
     <a class="btn" href="{% url 'app:new_memo' %}">新規メモ作成</a>
 
     {% for memo in memos %}
@@ -17,5 +21,7 @@
       </div>
     </a>
     {% endfor %}
+
+    {% endblock %}
 </body>
 </html>
