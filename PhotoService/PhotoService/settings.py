@@ -106,6 +106,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# ここから追加したもの
+
 
 STATIC_URL = '/static/'
 
@@ -114,4 +116,11 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 MEDIA_URL = '/media/'
+
+LOGIN_URL = 'app:login'
+
+LOGIN_REDIRECT_URL = 'app:index'
+
+LOGOUT_REDIRECT_URL = 'app:index'
