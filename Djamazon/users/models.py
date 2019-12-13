@@ -7,6 +7,7 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.core.mail import send_mail
 from django.utils import timezone
+from app.models import Product
 
 
 class UserManager(BaseUserManager):
@@ -45,6 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     initial_point = 50000
     email = models.EmailField('メールアドレス', unique=True)
     point = models.PositiveIntegerField(default=initial_point)
+    fav_products = models.ManyToManyField(Product, blank=True)
     is_staff = models.BooleanField('is_staff', default=False)
     is_active = models.BooleanField('is_active', default=True)
     date_joined = models.DateTimeField('date_joined',default=timezone.now)

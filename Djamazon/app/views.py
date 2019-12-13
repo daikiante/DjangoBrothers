@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
+from .models import Product
 
 def index(request):
-    return render(request, 'app/index.html')
+    products = Product.objects.all().order_by('-id')
+    return render(request, 'app/index.html', {'products': products})
 
 def signup(request):
     if request.method == 'POST':
@@ -20,3 +23,10 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'app/signup.html', {'form': form})
+
+def detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    context = {
+        'product': product,
+    }
+    return render(request, 'app/detail.html', context)
