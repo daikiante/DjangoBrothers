@@ -3,6 +3,10 @@
 
 {% block content %}
 
+{% if 'fav_products' in request.path %}
+    <div style="font-weight:bold; font-size: 28px; margin-bottom: 20px;">お気に入り商品</div>
+{% endif %}
+
 <div class="product-container">
     {% for product in products %}
 

@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
 from .forms import CustomUserCreationForm
 from .models import Product
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 def index(request):
     products = Product.objects.all().order_by('-id')
@@ -30,3 +32,20 @@ def detail(request, product_id):
         'product': product,
     }
     return render(request, 'app/detail.html', context)
+
+@login_required
+@require_POST
+def toggle_fav_product_status(request):
+    product = get_object_or_404(Product, pk=request.POST["product_id"])
+    user = request.user
+    if product in user.fav_products.all():
+        user.fav_products.remove(product)
+    else:
+        user.fav_products.add(product)
+    return redirect('app:detail', product_id=product.id)
+
+@login_required
+def fav_products(request):
+    user = request.user
+    products = user.fav_products.all()
+    return render(request, 'app/index.html', {'products': products})

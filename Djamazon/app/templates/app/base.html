@@ -42,6 +42,10 @@
 
         {% endblock %}
 
+        <!--お気に入りのリンクを追加 -->
+<span>Point: {{ user.point | intcomma }}</span>
+<span><a href="{% url 'app:fav_products' %}">お気に入り</a></span> <span><a href="">カート</a></span>
+
     </div>
 
  </body>
