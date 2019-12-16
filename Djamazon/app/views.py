@@ -6,6 +6,9 @@ from .forms import CustomUserCreationForm
 from .models import Product
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.contrib import messages
+from .forms import AddToCartForm
+
 
 def index(request):
     products = Product.objects.all().order_by('-id')
@@ -28,8 +31,24 @@ def signup(request):
 
 def detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
+    add_to_cart_form = AddToCartForm(request.POST or None)
+    if add_to_cart_form.is_valid():
+        num = add_to_cart_form.cleaned_data['num']
+
+        # セッションにcartというキーがあるかどうかで処理を分ける
+        if 'cart' in request.session:
+            if str(product_id) in request.session['cart']:
+                request.session['cart'][str(product_id)] += num
+            else:
+                request.session['cart'][str(product_id)] = num
+        else:
+        # 新しくcartというセッションキーを追加
+            request.session['cart'] = {str(product_id): num}
+        messages.success(request, f"{product.name}を{num}個カートに入れました！")
+        return redirect('app:detail', product_id=product_id)
     context = {
         'product': product,
+        'add_to_cart_form': add_to_cart_form,
     }
     return render(request, 'app/detail.html', context)
 
