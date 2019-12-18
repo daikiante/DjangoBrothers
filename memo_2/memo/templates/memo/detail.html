@@ -1,0 +1,20 @@
+{% extends 'memo/base.html' %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+                <div class="offset-3 col-6">
+
+                    <h1>TITLE: {{ memo.title }}</h1>
+                    <p>MEMO: {{ memo.text }}</p>
+                    <p>Create at {{ memo.create_at }}</p>
+                    <p><a href="{% url 'memo:index' %}">Back</a></p>
+
+                </div>
+        </div>
+    </div>
+
+
+{% endblock %}
