@@ -11,30 +11,27 @@
     <div class="row">
         {% for item in object_list %}
 
-        <div class="offset-2 col-4">
-            <ul class="alert alert-{{ item.priority }}" style='list-style:none;'>
+        <div class="offset-2 col-4 alert alert-{{ item.priority }}">
+            <ul class="" style='list-style:none;'>
 
 
 
 
                 <li>{{ item.title }}</li>
                 <li>{{ item.text }}</li>
+                <a href="{% url 'todo:update' item.pk %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">編集</a>
+                <a href="{% url 'todo:delete' item.pk %}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">削除</a>
+                <a href="{% url 'todo:detail' item.pk %}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">詳細</a>
 
 
 
             </ul>
 
-            <p>
-                <a href="{% url 'todo:detail' item.pk %}">Detail</a>
-            </p>
         </div>
 
         {% endfor %}
     </div>
 </div>
-
-
-
 
 
 
