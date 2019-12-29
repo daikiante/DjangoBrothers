@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import BoardCreate
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -13,6 +14,7 @@ urlpatterns = [
     path('detail/<int:pk>', views.detailfunc, name='detail'),
     path('good/<int:pk>', views.goodfunc, name='good'),
     path('read/<int:pk>', views.readfunc, name='read'),
+    path('create/', BoardCreate.as_view(), name='create'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

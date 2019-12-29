@@ -5,6 +5,8 @@ from django.shortcuts import redirect
 from .models import BoardModel
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 
 
@@ -72,3 +74,11 @@ def readfunc(request, pk):
         post.readtext = post.readtext + '' + post2
         post.save()
         return redirect('bordapp:list')
+
+
+class BoardCreate(CreateView):
+    template_name = 'bordapp/create.html'
+    model = BoardModel
+    # good,readはユーザーに指定されないようにする為追加しない
+    fields = ('title', 'content', 'auther', 'images')
+    success_url = reverse_lazy('bordapp:list')
