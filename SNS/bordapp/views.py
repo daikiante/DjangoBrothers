@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
+from .models import BoardModel
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
 
 
 def signupfunc(request):
@@ -30,7 +34,41 @@ def loginfunc(request):
         # もしユーザーがいなくなかったら(=存在する場合)
         if user is not None:
             login(request, user)
-            return redirect('bordapp:signup')
+            return redirect('bordapp:list')
         else:
             return redirect('bordapp:login')
     return render(request, 'bordapp/login.html')
+
+@login_required
+def listfunc(request):
+    object_list = BoardModel.objects.all()
+    return render(request, 'bordapp/list.html', {'object_list': object_list})
+
+
+def logoutfunc(request):
+    logout(request)
+    return redirect('bordapp:login')
+
+    
+def detailfunc(request, pk):
+    object = BoardModel.objects.get(pk=pk)
+    return render(request, 'bordapp/detail.html', {'object': object})
+
+
+def goodfunc(request, pk):
+    post = BoardModel.objects.get(pk=pk)
+    post.good = post.good + 1
+    post.save()
+    return redirect('bordapp:list')
+
+
+def readfunc(request, pk):
+    post = BoardModel.objects.get(pk=pk)
+    post2 = request.user.get_username()
+    if post2 in post.readtext:
+        return redirect('bordapp:list')
+    else:
+        post.read += 1
+        post.readtext = post.readtext + '' + post2
+        post.save()
+        return redirect('bordapp:list')

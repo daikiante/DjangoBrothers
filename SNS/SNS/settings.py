@@ -118,4 +118,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+
+# 画像の設定
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/medi/'
+
+# CSSファイルの設定
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+# もしユーザーがログインしていなかったら、以下の指定したURLに飛ばす(urls.py)
+LOGIN_URL = 'bordapp:login'
