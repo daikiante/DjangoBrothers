@@ -9,25 +9,16 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<form action=""　method='POST' enctype="multipart/form-data">
-    {% csrf_token %}
+<form action='' method='POST' enctype="multipart/form-data">{% csrf_token %}
+<p>タイトル：<input type='text' name='title'></p>
+<p>内容：<input type='text' name='content'></p>
+<p>画像：<input type='file' name='images'></p>
+<input type='hidden' name='auther' value='{{ user.username }}'>
 
-    <p>タイトル：<input type="text" name='title'></p>
-
-    <p>内容：<input type="text" name='content'></p>
-
-    <p>画像：<input type="file" name="images"></p>
-
-    <input type='hidden' name='auther' value='{{ user.username }}'>
-
-    <input type="submit" value="作成する">
+<input type='submit' value='作成する'>
 </form>
-
-
 {% else %}
-<h1>ログインしてください</h1>
-
-
+ログインしてください
 {% endif %}
 
 {% endblock content %}

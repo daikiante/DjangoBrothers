@@ -9,7 +9,6 @@ from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
 
-
 def signupfunc(request):
     if request.method == 'POST':
         username2 = request.POST['username']
@@ -79,6 +78,5 @@ def readfunc(request, pk):
 class BoardCreate(CreateView):
     template_name = 'bordapp/create.html'
     model = BoardModel
-    # good,readはユーザーに指定されないようにする為追加しない
     fields = ('title', 'content', 'auther', 'images')
     success_url = reverse_lazy('bordapp:list')
