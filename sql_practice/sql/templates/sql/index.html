@@ -8,5 +8,10 @@
 </head>
 <body>
     <h1>SQL Practice</h1>
+
+    {% for item in items %}
+        <p>{{ item.title }}</p>
+        <p>{{ item.content }}</p>
+    {% endfor %}
 </body>
 </html>
