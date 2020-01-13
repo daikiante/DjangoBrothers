@@ -1,0 +1,7 @@
+2019/12/9
+
+コードは一通り書いたもののエラー対処の方法がわからず断念した
+
+初めてのDjanogoアプリ作成、その4
+参考URL https://docs.djangoproject.com/ja/3.0/intro/tutorial04/
+
